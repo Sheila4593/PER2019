@@ -20,7 +20,6 @@ class OpenFDAHTMLParser(HTMLParser):
         self.items_number = 0
 
     def handle_starttag(self, tag, attrs):
-        # print("Encountered a start tag:", tag)
         if tag == "form":
             self.forms_number += 1
             for attr in attrs:
@@ -31,20 +30,15 @@ class OpenFDAHTMLParser(HTMLParser):
 
 
     def handle_endtag(self, tag):
-        # print("Encountered an end tag :", tag)
         pass
 
 
     def handle_data(self, data):
-        # print("Encountered some data  :", data)
         pass
 
 
 class WebServer(threading.Thread):
-    """ Thread to start the web server """
-
     def run(self):
-        # Start the web server in a thread. It will be killed once tests have finished
         cmd = [PYTHON_CMD, 'server.py']
         proc = subprocess.Popen(cmd, stderr=subprocess.PIPE)
         TestOpenFDA.WEBSERVER_PROC = proc
@@ -55,7 +49,6 @@ class WebServer(threading.Thread):
             return
 
 class TestOpenFDA(unittest.TestCase):
-    """ Automatic testing for OpenFDA web server main features """
     WEBSERVER_PROC = None
     PORT_BUSY = False
     TEST_PORT = 8000
@@ -65,16 +58,13 @@ class TestOpenFDA(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """ Start the web server to be tested """
         WebServer().start()
-        # Wait for web sever init code
         time.sleep(1)
         if cls.PORT_BUSY:
             raise RuntimeError("PORT BUSY")
 
     @classmethod
     def tearDownClass(cls):
-        """ Shutdown the webserver """
         cls.WEBSERVER_PROC.kill()
 
     def test_web_server_init(self):
@@ -82,21 +72,17 @@ class TestOpenFDA(unittest.TestCase):
         # print(resp.text)
         parser = OpenFDAHTMLParser()
         parser.feed(resp.text)
-        # Remove listWarnings that it is not in the basic specification
         self.TEST_ACTIONS.remove('listWarnings')
         try:
             parser.actions_list.remove('listWarnings')
         except ValueError:
-            # The form does not include this option
             pass
         self.assertEqual(len(parser.actions_list), 4)
         self.assertEqual(set(self.TEST_ACTIONS), set(parser.actions_list))
         self.TEST_ACTIONS.append('listWarnings')
 
     def test_web_server_init_warnings(self):
-        # In the complete project a listWarnings is included
         resp = requests.get('http://localhost:' + str(self.TEST_PORT))
-        # print(resp.text)
         parser = OpenFDAHTMLParser()
         parser.feed(resp.text)
         self.assertEqual(parser.forms_number, 5)
