@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Open FDA</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="estilo.css" media="screen" />
+
+</head>
+<body style="text-align:center">
+
+
+
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header mt-5 mb-5">
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+       <div class="btn btn-success" style="text-align:right">
+      <button class="btn">
+          <h1 class="text-center">
+                    Open FDA
+                </h1>
+      </button>
+      <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="navbar navbar-inverse" href="#tab1" data-toggle="tab" onclick="clearBox('content_data')">Listado de fármados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab3" data-toggle="tab" onclick="clearBox('content_data')">Búsqueda de fármacos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab2" data-toggle="tab" onclick="clearBox('content_data')">Listado de empresas</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab4" data-toggle="tab" onclick="clearBox('content_data')">Búsqueda de empresas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab5" data-toggle="tab" onclick="clearBox('content_data')">Advertencias</a>
+                    </li>
+      </ul>
+    </div>
+
+
+
+
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <div class="jumbotron" style="background:#e9fffc">
+                            <h2>
+                                Listar F&aacute;rmacos
+                            </h2>
+                            <p>
+                                Puede obtener la lista de medicamentos disponibles. Seleccione el n&uacute;mero de
+                                medicamentos que desea mostrarv
+                            </p>
+                            <form role="form" action="listDrugs" method="get">
+                                <div class="form-group col-lg-4">
+
+                                    <label for="LimiteInput" style="text-align:center;">
+                                        Limite:
+                                    </label>
+                                    <input type="number" class="form-control" name="limit" value="1" id="LimiteInput"
+                                           min="1"/>
+                                </div>
+
+                                <button type="submit" class="btn btn-success">
+                                    Someter
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <div class="jumbotron" style="background:#e9fffc">
+                            <h2>
+                                Listar Empresas
+                            </h2>
+                            <p>
+                                Puede obtener la lista de compa&ntilde;&iacute;as de medicamentos disponibles.
+                            </p>
+                            <form role="form" action="listCompanies" method="get">
+                                <div class="form-group col-lg-4">
+
+                                    <label for="ComLimite">
+                                        Limite:
+                                    </label>
+                                    <input type="number" class="form-control" name="limit" value="10" id="ComLimite"
+                                           min="1"/>
+                                </div>
+                                <button type="submit" class="btn btn-success">
+                                    Buscar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab3" style="text-align:center;">
+                        <div class="jumbotron" style="background:#e9fffc">
+                            <h2>
+                                Búsqueda de medicamentos
+                            </h2>
+                            <p>
+                                Por favor, indique el nombre del medicamento que desee buscar y seleccione un número límite de búsqueda
+                            </p>
+                            <form role="form" action="buscarDrug" method="get">
+                                <div class="form-group col-lg-4">
+
+                                    <label for="buscarMedName">
+                                        Nombre:
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="Nombre del medicamento"
+                                           name="name"
+                                           id="buscarMedName" required
+                                           style="align:center"
+                                    />
+
+                                    <label for="buscarMedLimit">
+                                        Limite:
+                                    </label>
+                                    <input type="number" class="form-control" name="limit" value="1"
+                                           id="buscarMedLimit"
+                                           min="1"/>
+                                </div>
+                                <button type="submit" class="btn btn-success" style="text-align:center;">
+                                    Buscar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab4" style="text-align:center;">
+                        <div class="jumbotron" style="background:#e9fffc">
+                            <h2>
+                                Buscar Compa&ntilde;&iacute;a
+                            </h2>
+                            <p>
+                                Busca todos los f&aacute;rmacos que tienen como ingrediente activo el compuesto indicado
+                                Nombre.
+                                Escriba el nombre de la empresa y el l&iacute;mite de b&uacute;squeda
+                            </p>
+                            <form role="form" action="buscarCompany" method="get">
+                                <div class="form-group col-lg-4">
+
+                                    <label for="buscarComName" style="text-align:center">
+                                        Nombre:
+                                    </label>
+                                    <input type="text" class="form-control"
+                                           placeholder="Nombre de la compa&ntilde;&iacute;a"
+                                           name="company"
+                                           id="buscarComName" required
+                                    />
+
+                                    <label for="buscarMedLimit">
+                                        Limite:
+                                    </label>
+                                    <input type="number" class="form-control" name="limit" value="1"
+                                           id="buscarComLimit"
+                                           min="1"/>
+                                </div>
+                                <button type="submit" class="btn btn-success">
+                                    Buscar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab5">
+                        <div class="jumbotron" style="background:#e9fffc">
+                            <h2>
+                                Listar
+                            Advertencias
+                            </h2>
+                            <p>
+                                Puede obtener un listado de las advertencias de los f&aacute;rmacos. Seleccione el n&uacute;mero de
+                                medicamentos que desea mostrarv
+                            </p>
+                            <form role="form" action="listWarnings" method="get" style="text-align:center">
+                                <div class="form-group col-lg-4">
+
+                                    <label for="LimiteWarinings">
+                                        Limite:
+                                    </label>
+                                    <input type="number" class="form-control" name="limit" value="1" id="LimiteWarinings"
+                                           min="1"/>
+                                </div>
+
+                                <button type="submit" class="btn btn-success">
+                                    Someter
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+</div>
+<div>
+    <script type="application/javascript">
+    function clearBox(elementID)
+{
+    document.getElementById(elementID).innerHTML = "";
+}
+</script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</div>
+</body>
+</html>
