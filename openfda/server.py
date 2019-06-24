@@ -31,14 +31,14 @@ class ClienteOpenFDA:
         return medi_json
 
     def buscar_med(self, name, limit):
-        buscar = "buscar=active_ingredient:{}".format(name)
+        buscar = "search=active_ingredient:{}".format(name)
         medi_json = self.get_info_FDA(limit, buscar)
 
         return medi_json
 
     def buscar_compa(self, name, limit):
 
-        buscar = "buscar=openfda.manufacturer_name:{}".format(name)
+        buscar = "search=openfda.manufacturer_name:{}".format(name)
         companies = self.get_info_FDA(limit, buscar)
 
         return companies
